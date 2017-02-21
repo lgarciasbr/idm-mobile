@@ -1,0 +1,47 @@
+<ion-header>
+
+    <ion-toolbar>
+
+        <ion-buttons bar-button left icon-only (click)="Back()">
+            <button ion-button>
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+
+        <ion-title>Add Account</ion-title>
+
+        <ion-buttons bar-button end icon-only hideWhen="android">
+            <button ion-button [disabled]="!form.valid" (click)="AddAccount()">
+                ok
+            </button>
+        </ion-buttons>
+
+    </ion-toolbar>
+
+</ion-header>
+
+<ion-content padding>
+
+    <form [formGroup]="form">
+
+        <ion-item>
+            <ion-label stacked>Account</ion-label>
+            <ion-input [(ngModel)]="accountDetail.email" #email placeholder="e-mail" formControlName="email" type="text" class="form-control"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label stacked>Password</ion-label>
+            <ion-input [(ngModel)]="accountDetail.password" #password placeholder="account password" formControlName="password" type="text" class="form-control"></ion-input>
+        </ion-item>
+
+        <ion-fab bottom right hideWhen="ios">
+            <button ion-fab mini [disabled]="!form.valid" (click)="AddAccount()">
+                <ion-icon name="checkmark"></ion-icon>
+            </button>
+        </ion-fab>
+
+    </form>
+
+</ion-content>
+
+

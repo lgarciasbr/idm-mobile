@@ -1,0 +1,69 @@
+<ion-content padding padding-top>
+
+    <br>
+
+    <h2 text-center padding-top padding-bottom>
+        LG idM | <small> Identity Manager</small>
+    </h2>
+
+    <br>
+
+    <form [formGroup]="form" (ngSubmit)="Login()" padding-bottom>
+        <ion-item>
+            <ion-label hideWhen="ios" floating>E-mail</ion-label>-
+            <ion-input hideWhen="ios" clearInput [(ngModel)]="accountDetail.email" formControlName="email" type="text" class="form-control"></ion-input>
+
+            <ion-input hideWhen="android" clearInput [(ngModel)]="accountDetail.email" #email placeholder="e-mail" formControlName="email" type="text" class="form-control"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label hideWhen="ios" floating>Password</ion-label>
+            <ion-input hideWhen="ios" clearInput [(ngModel)]="accountDetail.password" #password formControlName="password" type="text" class="form-control"></ion-input>
+
+            <ion-input hideWhen="android" clearInput [(ngModel)]="accountDetail.password" #password placeholder="password" formControlName="password" type="text" class="form-control"></ion-input>
+        </ion-item>
+
+        <ion-row padding-top>
+            <ion-col width-50 text-center>
+                <button ion-button [disabled]="!form.valid" type="submit" block>Sign in!</button>
+            </ion-col>
+            <ion-col width-50 text-center>
+                <button ion-button [disabled]="!form.valid" type="submit" block>Register</button>
+            </ion-col>
+        </ion-row>
+    </form>
+
+    <br>
+
+    <ion-note padding-top padding-bottom>...or login with:</ion-note>
+
+    <ion-row>
+        <ion-col width-50 text-center>
+            <button ion-button icon-left small clear>
+                <ion-icon name="logo-facebook"></ion-icon>
+                Facebook
+            </button>
+        </ion-col>
+        <ion-col width-50 text-center>
+            <button ion-button icon-left small clear>
+                <ion-icon name="logo-twitter"></ion-icon>
+                Twitter
+            </button>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col width-50 text-center>
+            <button ion-button icon-left text-center small clear>
+                <ion-icon name="logo-google"></ion-icon>
+                Google
+            </button>
+        </ion-col>
+        <ion-col width-50 text-center>
+            <button ion-button icon-left small clear>
+                <ion-icon name="logo-linkedin"></ion-icon>
+                LinkedIn
+            </button>
+        </ion-col>
+    </ion-row>
+
+</ion-content>

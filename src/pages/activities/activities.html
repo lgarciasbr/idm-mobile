@@ -1,0 +1,23 @@
+<ion-header>
+    <ion-navbar>
+
+        <button ion-button menuToggle icon-only>
+            <ion-icon name='menu'></ion-icon>
+        </button>
+
+        <ion-title>Activities</ion-title>
+
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding padding-top>
+
+    <ion-item *ngFor="let page of pages"> <!--(click)="openPage(page)">-->
+        <ion-icon [name]="page.icon" item-left></ion-icon>
+        {{page.title}}
+        <ion-note item-right color="primary">
+            {{page.note}}
+        </ion-note>
+    </ion-item>
+
+</ion-content>
