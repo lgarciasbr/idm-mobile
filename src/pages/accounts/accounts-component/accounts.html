@@ -49,6 +49,9 @@
     </ion-refresher>
 
     <button ion-item *ngFor="let account of accounts" (click)="GetUser(account)">
+        <ion-avatar item-left>
+            <img [src]=account._avatar>
+        </ion-avatar>
         {{ account.email }}
     </button>
 

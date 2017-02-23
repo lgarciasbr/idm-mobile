@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { App, NavController, AlertController, LoadingController } from 'ionic-angular';
+import md5 from 'crypto-md5';
 import 'rxjs/add/operator/map';
 
 import { AccountsService } from '../../../providers/accounts.service';
@@ -9,13 +10,16 @@ import { AccountDetailsPage } from '../account-details/account-details';
 import { AccountAddPage } from '../account-add/account-add';
 import { AuthPage } from '../../auth/auth';
 
+import { Account } from '../../../providers/account'
+
 @Component({
     selector: 'page-accounts',
     templateUrl: 'accounts.html'
 })
 export class AccountsPage {
-    accounts: any[];
+    accounts: Account[];
     isSearchBarVisible = false;
+    profilePicture = "https://www.gravatar.com/avatar/" + md5('evon.burleigh@beer.com', 'hex') + "?d=mm"; //this.email.toLowerCase(), 'hex');
 
     constructor(
         private app: App,
@@ -34,12 +38,13 @@ export class AccountsPage {
         this.isSearchBarVisible = !this.isSearchBarVisible
     }
 
-    GetUsers(page?){
+    GetUsers(page?, loading?){
         let loader = this.loadingController.create({
             content: "Please wait",
             spinner: "crescent"
         })
-            loader.present();
+        //if (loading)
+        loader.present();
 
         this._service.GetUsers(page)
             .subscribe(
@@ -56,6 +61,9 @@ export class AccountsPage {
                     }
                 },
                 () => {
+                    for (let account of this.accounts) {
+                        account._avatar = "https://www.gravatar.com/avatar/" + md5(account.email.toLowerCase(), 'hex') + "?d=mm";
+                    }
                     loader.dismiss();
                 }
             );
