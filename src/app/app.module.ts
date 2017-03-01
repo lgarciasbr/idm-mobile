@@ -9,6 +9,7 @@ import { AuthService } from '../providers/auth.service';
 import { AuthPage } from '../pages/auth/auth'
 import { ActivitiesPage } from '../pages/activities/activities';
 import { AccountsService } from '../providers/accounts.service';
+import { CRUDService } from '../providers/generic.crud.service';
 import { Account } from '../providers/account';
 import { GroupsPage } from '../pages/groups/groups';
 import { CompanyPage } from '../pages/company/company';
@@ -53,6 +54,7 @@ import { TabsPage } from '../pages/tabs/tabs';
             provide: ErrorHandler, useClass: IonicErrorHandler
         },
         Storage,
+        CRUDService,
         AuthService,
         AccountsService,
         Account

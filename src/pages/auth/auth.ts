@@ -4,10 +4,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { Config } from 'ionic-angular';
 
-import { AuthService } from '../../providers/auth.service';
+import { AppConfig } from '../../providers/config.service.ts';
+import { CRUDService } from '../../providers/generic.crud.service';
+import { Account } from '../../providers/account';
 import { BasicValidators } from '../../shared/basic.validators';
 
-import { Account } from '../../providers/account';
 import { TabsPage } from '../tabs/tabs';
 
 @Component({
@@ -15,9 +16,9 @@ import { TabsPage } from '../tabs/tabs';
     templateUrl: 'auth.html'
 })
 export class AuthPage {
-    public projectWebName = 'LG idM';
+    public appName = AppConfig.appName;
     private form: FormGroup;
-    private accountDetail = new Account();
+    private account = new Account();
 
     constructor(
         private app: App,
@@ -28,7 +29,7 @@ export class AuthPage {
         private fb: FormBuilder,
         private storage: Storage,
         private config: Config,
-        private authService: AuthService) {
+        private crudService: CRUDService) {
             this.form = fb.group({
                 email: ['', BasicValidators.email],
                 password: ['', Validators.required]
@@ -44,7 +45,7 @@ export class AuthPage {
 
         this.form.disable();
 
-        this.authService.Login(this.accountDetail.email, this.accountDetail.password)
+        this.crudService.AddItem('auth', this.account)
             .subscribe(
                 data => token = data._token,
                 response => {
@@ -57,6 +58,7 @@ export class AuthPage {
                     this.navCtrl.push(TabsPage);
                 }
             );
+
     }
 
     alert(message){

@@ -6,8 +6,6 @@ import { Storage } from '@ionic/storage';
 import { Config } from 'ionic-angular';
 import 'rxjs/add/operator/map';
 
-//import { AuthPage } from '../pages/auth/auth'
-
 @Injectable()
 export class AuthService {
     private _url = "https://lgidm.herokuapp.com/auth/";
@@ -58,8 +56,6 @@ export class AuthService {
         this._http.delete(this._url, options)
             .map(res => res.json()
             );
-
-        //this.app.getRootNav().setRoot(AuthPage);
     }
 
 }
