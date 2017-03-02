@@ -2,14 +2,16 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
+import { CRUDService } from '../providers/generic.crud.service';
+import { Account } from '../providers/account';
+import { Group } from '../providers/group';
+
 import { AccountsModule } from '../pages/accounts/accounts.module';
+import { GroupsModule } from '../pages/groups/groups.module';
 
 import { MyApp } from './app.component';
 import { AuthPage } from '../pages/auth/auth'
 import { ActivitiesPage } from '../pages/activities/activities';
-import { CRUDService } from '../providers/generic.crud.service';
-import { Account } from '../providers/account';
-import { GroupsPage } from '../pages/groups/groups';
 import { CompanyPage } from '../pages/company/company';
 import { TabsPage } from '../pages/tabs/tabs';
 
@@ -18,7 +20,6 @@ import { TabsPage } from '../pages/tabs/tabs';
         MyApp,
         AuthPage,
         ActivitiesPage,
-        GroupsPage,
         CompanyPage,
         TabsPage
     ],
@@ -36,14 +37,14 @@ import { TabsPage } from '../pages/tabs/tabs';
                 }
             },
         ),
-        AccountsModule
+        AccountsModule,
+        GroupsModule
     ],
     bootstrap: [IonicApp],
     entryComponents: [
         MyApp,
         AuthPage,
         ActivitiesPage,
-        GroupsPage,
         CompanyPage,
         TabsPage
     ],
@@ -53,7 +54,8 @@ import { TabsPage } from '../pages/tabs/tabs';
         },
         Storage,
         CRUDService,
-        Account
+        Account,
+        Group
     ]
 })
 export class AppModule {}

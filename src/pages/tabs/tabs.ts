@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { ActivitiesPage } from '../activities/activities';
 import { AccountsListPage } from "../accounts/list-component/list.component";
-import { GroupsPage } from '../groups/groups';
+import { GroupsListPage } from "../groups/list-component/list.component";
 import { CompanyPage } from '../company/company';
 
 @Component({
@@ -11,7 +11,7 @@ import { CompanyPage } from '../company/company';
 export class TabsPage {
   tab1Root: any = ActivitiesPage;
   tab2Root: any = AccountsListPage;
-  tab3Root: any = GroupsPage;
+  tab3Root: any = GroupsListPage;
   tab4Root: any = CompanyPage;
 
   constructor() {

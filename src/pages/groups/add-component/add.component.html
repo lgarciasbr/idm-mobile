@@ -1,0 +1,42 @@
+<ion-header>
+
+    <ion-toolbar>
+
+        <ion-buttons bar-button left icon-only (click)="Back()">
+            <button ion-button>
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+
+        <ion-title>{{ pageTitle }}</ion-title>
+
+        <ion-buttons bar-button end icon-only hideWhen="android">
+            <button ion-button [disabled]="!form.valid" (click)="AddItem()">
+                ok
+            </button>
+        </ion-buttons>
+
+    </ion-toolbar>
+
+</ion-header>
+
+<ion-content padding>
+
+    <form [formGroup]="form">
+
+        <ion-item>
+            <ion-label stacked>Group</ion-label>
+            <ion-input [(ngModel)]="ItemVO.name"  placeholder="name" formControlName="name" type="text" class="form-control"></ion-input>
+        </ion-item>
+
+        <ion-fab bottom right hideWhen="ios">
+            <button ion-fab mini [disabled]="!form.valid" (click)="AddItem()">
+                <ion-icon name="checkmark"></ion-icon>
+            </button>
+        </ion-fab>
+
+    </form>
+
+</ion-content>
+
+

@@ -1,0 +1,51 @@
+<ion-header>
+
+    <ion-toolbar>
+
+        <ion-buttons bar-button left icon-only (click)="Back()">
+            <button ion-button>
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+
+        <ion-title>{{ pageTitle }}</ion-title>
+
+        <ion-buttons bar-button end icon-only hideWhen="ios">
+            <button ion-button (click)="ConfirmDelete(ItemVO)">
+                <ion-icon name="trash"></ion-icon>
+            </button>
+        </ion-buttons>
+
+    </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+
+    <ion-list>
+
+        <ion-item text-wrap padding-top>
+
+            <p>e-mail:</p>
+            <h4>
+                {{ ItemVO?.name }}
+            </h4>
+
+        </ion-item>
+
+        <ion-item text-wrap padding-bottom>
+
+            <p>created at:</p>
+            <h4>
+                {{ ItemVO?._created_at | date: 'dd/MM/yyyy hh:mm' }}
+            </h4>
+
+        </ion-item>
+
+        <button ion-button clear padding-top hideWhen="android" (click)="ConfirmDelete(ItemVO)">
+            delete account
+        </button>
+
+    </ion-list>
+
+</ion-content>

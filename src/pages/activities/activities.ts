@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController, MenuController } from 'ionic-angular';
 
-import { AccountsListPage } from '../accounts/list-component/list.component'
-import { GroupsPage } from '../groups/groups'
-import { CompanyPage } from '../company/company'
-
+import { AccountsListPage } from '../accounts/list-component/list.component';
+import { GroupsListPage } from '../groups/list-component/list.component';
+import { CompanyPage } from '../company/company';
 
 @Component({
     selector: 'activities-home',
@@ -22,7 +21,7 @@ export class ActivitiesPage {
     ionViewDidLoad() {
         this.pages = [
             { title: 'Accounts', component: AccountsListPage, icon: 'person', note: '42' },
-            { title: 'Groups', component: GroupsPage, icon: 'people', note: '42' },
+            { title: 'Groups', component: GroupsListPage, icon: 'people', note: '42' },
             { title: 'Company', component: CompanyPage, icon: 'briefcase', note: '42' }
         ];
     }
@@ -38,7 +37,7 @@ export class ActivitiesPage {
 
     Groups(){
         this.navCtrl.parent.select(2);
-        this.navCtrl.push(GroupsPage);
+        this.navCtrl.push(GroupsListPage);
     }
 
     Company(){
