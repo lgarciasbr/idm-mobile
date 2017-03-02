@@ -8,10 +8,10 @@
             </button>
         </ion-buttons>
 
-        <ion-title>Account Details</ion-title>
+        <ion-title>{{ pageTitle }}</ion-title>
 
         <ion-buttons bar-button end icon-only hideWhen="ios">
-            <button ion-button (click)="ConfirmDelAccount(account)">
+            <button ion-button (click)="ConfirmDelete(ItemVO)">
                 <ion-icon name="trash"></ion-icon>
             </button>
         </ion-buttons>
@@ -28,7 +28,7 @@
 
             <p>e-mail:</p>
             <h4>
-                {{ account?.email }}
+                {{ ItemVO?.email }}
             </h4>
 
         </ion-item>
@@ -37,12 +37,12 @@
 
             <p>created at:</p>
             <h4>
-                {{ account?._created_at | date: 'dd/MM/yyyy hh:mm' }}
+                {{ ItemVO?._created_at | date: 'dd/MM/yyyy hh:mm' }}
             </h4>
 
         </ion-item>
 
-        <button ion-button clear padding-top hideWhen="android" (click)="ConfirmDelAccount(account)">
+        <button ion-button clear padding-top hideWhen="android" (click)="ConfirmDelete(ItemVO)">
             delete account
         </button>
 

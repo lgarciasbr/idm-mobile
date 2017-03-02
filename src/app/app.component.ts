@@ -4,10 +4,11 @@ import { StatusBar, Splashscreen } from 'ionic-native';
 import { Storage } from '@ionic/storage';
 import { Config } from 'ionic-angular';
 
+import { CRUDService } from '../providers/generic.crud.service';
+
 import { AuthPage } from '../pages/auth/auth';
 import { TabsPage } from '../pages/tabs/tabs';
 
-import { AuthService } from '../providers/auth.service'
 
 @Component({
   templateUrl: 'app.html'
@@ -20,10 +21,9 @@ export class MyApp {
   constructor(
     private app: App,
     private platform: Platform,
-    private _auth: AuthService,
     private storage: Storage,
-    private config: Config
-  ){
+    private config: Config,
+    private crudService: CRUDService){
     platform.ready().then(() => {
       StatusBar.styleDefault();
       Splashscreen.hide();
@@ -48,7 +48,7 @@ export class MyApp {
   }
 
   Logout(){
-    this._auth.Logout();
+    this.crudService.Logout();
     this.app.getRootNav().setRoot(AuthPage);
   }
 

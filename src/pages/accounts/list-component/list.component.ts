@@ -4,12 +4,11 @@ import md5 from 'crypto-md5';
 import 'rxjs/add/operator/map';
 
 import { CRUDService } from '../../../providers/generic.crud.service';
-
-import { AccountDetailsPage } from '../account-details/account-details';
-import { AccountAddPage } from '../account-add/account-add';
-import { AuthPage } from '../../auth/auth';
-
 import { Account } from '../../../providers/account';
+
+import { AccountDetailsPage } from '../details-component/details.component';
+import { AccountAddPage } from '../add-component/add.component';
+import { AuthPage } from '../../auth/auth';
 
 @Component({
     selector: 'page-account-list',
@@ -51,7 +50,7 @@ export class AccountsListPage {
                 response => {
                     if (response.status == 403) {
                         loader.dismiss();
-                        this.crudService.Logout()
+                        this.crudService.Logout();
                         this.app.getRootNav().setRoot(AuthPage);
                     }
                     else {

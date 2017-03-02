@@ -5,10 +5,8 @@ import { Storage } from '@ionic/storage';
 import { AccountsModule } from '../pages/accounts/accounts.module';
 
 import { MyApp } from './app.component';
-import { AuthService } from '../providers/auth.service';
 import { AuthPage } from '../pages/auth/auth'
 import { ActivitiesPage } from '../pages/activities/activities';
-import { AccountsService } from '../providers/accounts.service';
 import { CRUDService } from '../providers/generic.crud.service';
 import { Account } from '../providers/account';
 import { GroupsPage } from '../pages/groups/groups';
@@ -55,8 +53,6 @@ import { TabsPage } from '../pages/tabs/tabs';
         },
         Storage,
         CRUDService,
-        AuthService,
-        AccountsService,
         Account
     ]
 })

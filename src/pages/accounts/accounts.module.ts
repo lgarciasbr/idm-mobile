@@ -3,12 +3,11 @@ import { CommonModule } from '@angular/common';
 import { IonicModule, IonicApp, IonicErrorHandler } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
-import { AccountsService } from '../../providers/accounts.service';
 import { Account } from '../../providers/account';
 
 import { AccountsListPage } from './list-component/list.component';
-import { AccountAddPage } from './account-add/account-add';
-import { AccountDetailsPage } from './account-details/account-details';
+import { AccountAddPage } from './add-component/add.component';
+import { AccountDetailsPage } from './details-component/details.component';
 
 @NgModule({
     declarations: [
@@ -31,7 +30,6 @@ import { AccountDetailsPage } from './account-details/account-details';
             provide: ErrorHandler, useClass: IonicErrorHandler
         },
         Storage,
-        AccountsService,
         Account
     ]
 })

@@ -1,18 +1,18 @@
 import { Component } from '@angular/core';
 import { App, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 
-import { AccountsService } from '../../../providers/accounts.service';
-import { AuthService } from '../../../providers/auth.service';
+import { CRUDService } from '../../../providers/generic.crud.service';
+import { Account } from '../../../providers/account';
 
-import { AccountsListPage } from '../list-component/list.component';
 import { AuthPage } from '../../auth/auth';
 
 @Component({
     selector: 'page-account-details',
-    templateUrl: 'account-details.html'
+    templateUrl: 'details.component.html'
 })
 export class AccountDetailsPage {
-    account: any;
+    private pageTitle = 'Account Details';
+    public ItemVO = new Account();
 
     constructor(
         private app: App,
@@ -20,58 +20,35 @@ export class AccountDetailsPage {
         public navParams: NavParams,
         private alertCtrl: AlertController,
         private loadingController: LoadingController,
-        private _auth: AuthService,
-        private _account: AccountsService) {
+        private crudService: CRUDService) {
 
-        this.GetAccount(navParams.get('item'))
+        this.GetItem(navParams.get('item'))
     }
 
-    ionViewDidLoad() {
-    }
-
-    Back(){
-        this.navCtrl.pop(AccountsListPage);
-    }
-
-    Alert(message, page?){
-        let alert = this.alertCtrl.create({
-            title: 'Account',
-            subTitle: message,
-            buttons: [{
-                text: 'Account not found.',
-                handler: () => {
-                    if(page)
-                        this.navCtrl.pop(page);
-                }
-            }]
-        });
-        alert.present();
-    }
-
-    GetAccount(account){
+    GetItem(item){
         var loader = this.loadingController.create({
             content: "Please wait",
             spinner: "crescent"
         })
         loader.present();
 
-        this._account.GetUser(account)
+        this.crudService.GetItem(item)
             .subscribe(
-                data => this.account = data.account,
+                data => this.ItemVO = data.account,
                 response => {
                     if (response.status == 403) {
                         loader.dismiss();
-                        this._auth.Logout();
+                        this.crudService.Logout();
                         this.app.getRootNav().setRoot(AuthPage);
                     }
                     else if (response.status == 404) {
                         loader.dismiss();
-                        this.Alert('Account not found.', AccountsListPage)
+                        this.Alert(JSON.parse(response._body).message, true)
                     }
                     else  {
                         loader.dismiss();
                         this.Alert(JSON.parse(response._body).message)
-                        this.navCtrl.pop(AccountsListPage);
+                        this.navCtrl.pop();
                     }
                 },
                 () => {
@@ -80,10 +57,10 @@ export class AccountDetailsPage {
             );
     }
 
-    ConfirmDelAccount(account){
+    ConfirmDelete(item){
         let alert = this.alertCtrl.create({
-            title: 'Account',
-            subTitle: 'Are you sure you want to delete ' + account.email + '?',
+            title: this.pageTitle,
+            subTitle: 'Are you sure you want to delete ' + item.email + '?',
             buttons: [
                 {
                     text: 'Cancel',
@@ -93,7 +70,7 @@ export class AccountDetailsPage {
                 {
                     text: 'Delete',
                     handler: data => {
-                        this.DelAccount(account);
+                        this.DeleteItem(item);
                     }
                 }
             ]
@@ -101,7 +78,7 @@ export class AccountDetailsPage {
         alert.present();
     }
 
-    DelAccount(account){
+    DeleteItem(item){
         let loader = this.loadingController.create({
             content: "Please wait",
             spinner: "crescent",
@@ -109,18 +86,18 @@ export class AccountDetailsPage {
         })
         loader.present();
 
-        this._account.DeleteUser(account)
+        this.crudService.DeleteItem(item)
             .subscribe(
-                data => this.account = data.account,
+                data => this.ItemVO = data.account,
                 response => {
                     if (response.status == 403) {
                         loader.dismiss();
-                        this._auth.Logout();
+                        this.crudService.Logout();
                         this.app.getRootNav().setRoot(AuthPage);
                     }
                     else if (response.status == 404) {
                         loader.dismiss();
-                        this.Alert('Account not found.', AccountsListPage)
+                        this.Alert(JSON.parse(response._body).message, true)
                     }
                     else {
                         loader.dismiss();
@@ -128,9 +105,28 @@ export class AccountDetailsPage {
                     }
                 },
                 () => {
-                    this.navCtrl.pop(AccountsListPage);
+                    this.navCtrl.pop();
                 }
             );
+    }
+
+    Back(){
+        this.navCtrl.pop();
+    }
+
+    Alert(message, back?){
+        let alert = this.alertCtrl.create({
+            title: this.pageTitle,
+            subTitle: message,
+            buttons: [{
+                text: 'Dismiss',
+                handler: () => {
+                    if(back)
+                        this.navCtrl.pop();
+                }
+            }]
+        });
+        alert.present();
     }
 
 }

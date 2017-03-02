@@ -8,10 +8,10 @@
             </button>
         </ion-buttons>
 
-        <ion-title>Add Account</ion-title>
+        <ion-title>{{ pageTitle }}</ion-title>
 
         <ion-buttons bar-button end icon-only hideWhen="android">
-            <button ion-button [disabled]="!form.valid" (click)="AddAccount()">
+            <button ion-button [disabled]="!form.valid" (click)="AddItem()">
                 ok
             </button>
         </ion-buttons>
@@ -26,16 +26,16 @@
 
         <ion-item>
             <ion-label stacked>Account</ion-label>
-            <ion-input [(ngModel)]="accountDetail.email" #email placeholder="e-mail" formControlName="email" type="text" class="form-control"></ion-input>
+            <ion-input [(ngModel)]="ItemVO.email" #email placeholder="e-mail" formControlName="email" type="text" class="form-control"></ion-input>
         </ion-item>
 
         <ion-item>
             <ion-label stacked>Password</ion-label>
-            <ion-input [(ngModel)]="accountDetail.password" #password placeholder="account password" formControlName="password" type="text" class="form-control"></ion-input>
+            <ion-input [(ngModel)]="ItemVO.password" #password placeholder="account password" formControlName="password" type="text" class="form-control"></ion-input>
         </ion-item>
 
         <ion-fab bottom right hideWhen="ios">
-            <button ion-fab mini [disabled]="!form.valid" (click)="AddAccount()">
+            <button ion-fab mini [disabled]="!form.valid" (click)="AddItem()">
                 <ion-icon name="checkmark"></ion-icon>
             </button>
         </ion-fab>

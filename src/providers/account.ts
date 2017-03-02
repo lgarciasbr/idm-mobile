@@ -1,4 +1,3 @@
-import md5 from 'crypto-md5';
 
 export class Account {
     _url: string;
