@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, MenuController } from 'ionic-angular';
 
-import { AccountsPage } from '../accounts/accounts-component/accounts'
+import { AccountsListPage } from '../accounts/list-component/list.component'
 import { GroupsPage } from '../groups/groups'
 import { CompanyPage } from '../company/company'
 
@@ -21,7 +21,7 @@ export class ActivitiesPage {
 
     ionViewDidLoad() {
         this.pages = [
-            { title: 'Accounts', component: AccountsPage, icon: 'person', note: '42' },
+            { title: 'Accounts', component: AccountsListPage, icon: 'person', note: '42' },
             { title: 'Groups', component: GroupsPage, icon: 'people', note: '42' },
             { title: 'Company', component: CompanyPage, icon: 'briefcase', note: '42' }
         ];
@@ -33,7 +33,7 @@ export class ActivitiesPage {
 
     Accounts(){
         this.navCtrl.parent.select(1);
-        this.navCtrl.push(AccountsPage);
+        this.navCtrl.push(AccountsListPage);
     }
 
     Groups(){

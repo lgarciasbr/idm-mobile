@@ -8,7 +8,7 @@ import { AuthService } from '../../../providers/auth.service';
 
 import { Account } from '../../../providers/account';
 
-import { AccountsPage } from '../accounts-component/accounts';
+import { AccountsListPage } from '../list-component/list.component';
 import { AuthPage } from '../../auth/auth';
 
 @Component({
@@ -60,13 +60,13 @@ export class AccountAddPage {
                     }
                 },
                 () => {
-                    this.navCtrl.pop(AccountsPage);
+                    this.navCtrl.pop(AccountsListPage);
                 }
             );
     }
 
     Back(){
-        this.navCtrl.pop(AccountsPage);
+        this.navCtrl.pop(AccountsListPage);
     }
 
     Alert(message){

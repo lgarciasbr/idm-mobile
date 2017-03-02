@@ -6,7 +6,7 @@
             <ion-icon name='menu'></ion-icon>
         </button>
 
-        <ion-title [hidden]="isSearchBarVisible">Accounts</ion-title>
+        <ion-title [hidden]="isSearchBarVisible">{{ pageTitle }}</ion-title>
 
 
         <ion-buttons bar-button left icon-only>
@@ -17,11 +17,11 @@
 
         </ion-buttons>
 
-        <ion-searchbar hideWhen="ios" [hidden]="!isSearchBarVisible" right type="email" debounce="500"></ion-searchbar>
+        <ion-searchbar hideWhen="ios" [hidden]="!isSearchBarVisible" right debounce="500"></ion-searchbar>
 
         <ion-buttons bar-button end icon-only>
 
-            <button hideWhen="android" ion-button (click)="AddUser()">
+            <button hideWhen="android" ion-button (click)="AddItem()">
                 <ion-icon name="add"></ion-icon>
             </button>
 
@@ -33,7 +33,7 @@
 
     </ion-toolbar>
 
-    <ion-searchbar hideWhen="android" type="email" debounce="300"></ion-searchbar>
+    <ion-searchbar hideWhen="android" debounce="300"></ion-searchbar>
 
 </ion-header>
 
@@ -48,15 +48,15 @@
         </ion-refresher-content>
     </ion-refresher>
 
-    <button ion-item *ngFor="let account of accounts" (click)="GetUser(account)">
+    <button ion-item *ngFor="let item of ItemsVO" (click)="GetItem(item)">
         <ion-avatar item-left>
-            <img [src]=account._avatar>
+            <img [src]=item._avatar>
         </ion-avatar>
-        {{ account.email }}
+        {{ item.email }}
     </button>
 
     <ion-fab bottom right hideWhen="ios">
-        <button ion-fab mini (click)="AddUser()">
+        <button ion-fab mini (click)="AddItem()">
             <ion-icon name="add"></ion-icon>
         </button>
     </ion-fab>

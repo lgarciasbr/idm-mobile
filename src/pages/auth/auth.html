@@ -11,16 +11,16 @@
     <form [formGroup]="form" (ngSubmit)="Login()" padding-bottom>
         <ion-item>
             <ion-label hideWhen="ios" floating>E-mail</ion-label>-
-            <ion-input hideWhen="ios" clearInput [(ngModel)]="account.email" formControlName="email" type="text" class="form-control"></ion-input>
+            <ion-input hideWhen="ios" clearInput [(ngModel)]="ItemVO.email" formControlName="email" type="text" class="form-control"></ion-input>
 
-            <ion-input hideWhen="android" clearInput [(ngModel)]="account.email" #email placeholder="e-mail" formControlName="email" type="text" class="form-control"></ion-input>
+            <ion-input hideWhen="android" clearInput [(ngModel)]="ItemVO.email" #email placeholder="e-mail" formControlName="email" type="text" class="form-control"></ion-input>
         </ion-item>
 
         <ion-item>
             <ion-label hideWhen="ios" floating>Password</ion-label>
-            <ion-input hideWhen="ios" clearInput [(ngModel)]="account.password" #password formControlName="password" type="text" class="form-control"></ion-input>
+            <ion-input hideWhen="ios" clearInput [(ngModel)]="ItemVO.password" #password formControlName="password" type="text" class="form-control"></ion-input>
 
-            <ion-input hideWhen="android" clearInput [(ngModel)]="account.password" #password placeholder="password" formControlName="password" type="text" class="form-control"></ion-input>
+            <ion-input hideWhen="android" clearInput [(ngModel)]="ItemVO.password" #password placeholder="password" formControlName="password" type="text" class="form-control"></ion-input>
         </ion-item>
 
         <ion-row padding-top>

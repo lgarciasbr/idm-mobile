@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import { ActivitiesPage } from '../activities/activities';
-import { AccountsPage } from "../accounts/accounts-component/accounts";
+import { AccountsListPage } from "../accounts/list-component/list.component";
 import { GroupsPage } from '../groups/groups';
 import { CompanyPage } from '../company/company';
 
@@ -10,7 +10,7 @@ import { CompanyPage } from '../company/company';
 })
 export class TabsPage {
   tab1Root: any = ActivitiesPage;
-  tab2Root: any = AccountsPage;
+  tab2Root: any = AccountsListPage;
   tab3Root: any = GroupsPage;
   tab4Root: any = CompanyPage;
 

@@ -3,56 +3,55 @@ import { App, NavController, AlertController, LoadingController } from 'ionic-an
 import md5 from 'crypto-md5';
 import 'rxjs/add/operator/map';
 
-import { AccountsService } from '../../../providers/accounts.service';
-import { AuthService } from '../../../providers/auth.service';
+import { CRUDService } from '../../../providers/generic.crud.service';
 
 import { AccountDetailsPage } from '../account-details/account-details';
 import { AccountAddPage } from '../account-add/account-add';
 import { AuthPage } from '../../auth/auth';
 
-import { Account } from '../../../providers/account'
+import { Account } from '../../../providers/account';
 
 @Component({
-    selector: 'page-accounts',
-    templateUrl: 'accounts.html'
+    selector: 'page-account-list',
+    templateUrl: 'list.component.html'
 })
-export class AccountsPage {
-    accounts: Account[];
-    isSearchBarVisible = false;
-    profilePicture = "https://www.gravatar.com/avatar/" + md5('evon.burleigh@beer.com', 'hex') + "?d=mm"; //this.email.toLowerCase(), 'hex');
+export class AccountsListPage {
+    private pageTitle = 'Accounts';
+    private type = 'accounts';
+    public ItemsVO: Account[];
+    public isSearchBarVisible = false;
 
     constructor(
         private app: App,
         public navCtrl: NavController,
         private alertCtrl: AlertController,
         private loadingController: LoadingController,
-        private _service: AccountsService,
-        private _auth: AuthService){
+        private crudService: CRUDService){
     }
 
     ionViewWillEnter(){
-        this.GetUsers();
+        this.GetList();
     }
 
     ChangeSearchBarStatus(){
         this.isSearchBarVisible = !this.isSearchBarVisible
     }
 
-    GetUsers(page?, loading?){
+    GetList(page?){
         let loader = this.loadingController.create({
             content: "Please wait",
             spinner: "crescent"
         })
-        //if (loading)
+
         loader.present();
 
-        this._service.GetUsers(page)
+        this.crudService.GetList(this.type, page)
             .subscribe(
-                data => this.accounts = data.accounts,
+                data => this.ItemsVO = data.accounts,
                 response => {
                     if (response.status == 403) {
                         loader.dismiss();
-                        this._auth.Logout();
+                        this.crudService.Logout()
                         this.app.getRootNav().setRoot(AuthPage);
                     }
                     else {
@@ -61,8 +60,8 @@ export class AccountsPage {
                     }
                 },
                 () => {
-                    for (let account of this.accounts) {
-                        account._avatar = "https://www.gravatar.com/avatar/" + md5(account.email.toLowerCase(), 'hex') + "?d=mm";
+                    for (let item of this.ItemsVO) {
+                        item._avatar = "https://www.gravatar.com/avatar/" + md5(item.email.toLowerCase(), 'hex') + "?d=mm";
                     }
                     loader.dismiss();
                 }
@@ -70,22 +69,22 @@ export class AccountsPage {
     }
 
     DoRefresh(refresher) {
-        this.GetUsers()
+        this.GetList()
 
         refresher.complete();
     }
 
-    GetUser(account) {
-        this.navCtrl.push(AccountDetailsPage, {account});
+    GetItem(item) {
+        this.navCtrl.push(AccountDetailsPage, {item});
     }
 
-    AddUser() {
+    AddItem() {
         this.navCtrl.push(AccountAddPage);
     }
 
     Alert(message){
         let alert = this.alertCtrl.create({
-            title: 'Account',
+            title: this.pageTitle,
             subTitle: message,
             buttons: ['Dismiss']
         });

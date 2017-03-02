@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { App, NavController, NavParams, AlertController, MenuController } from 'ionic-angular';
+import { NavController, AlertController, MenuController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { Config } from 'ionic-angular';
@@ -16,14 +16,14 @@ import { TabsPage } from '../tabs/tabs';
     templateUrl: 'auth.html'
 })
 export class AuthPage {
-    public appName = AppConfig.appName;
     private form: FormGroup;
-    private account = new Account();
+    public appName = AppConfig.appName;
+    private pageTitle = 'Auth';
+    private type = 'auth';
+    private ItemVO = new Account();
 
     constructor(
-        private app: App,
         public navCtrl: NavController,
-        public navParams: NavParams,
         public menuCtrl: MenuController,
         private alertCtrl: AlertController,
         private fb: FormBuilder,
@@ -37,15 +37,12 @@ export class AuthPage {
             menuCtrl.enable(false);
     }
 
-    ionViewDidLoad() {
-    }
-
     Login(){
         var token;
 
         this.form.disable();
 
-        this.crudService.AddItem('auth', this.account)
+        this.crudService.AddItem(this.type, this.ItemVO)
             .subscribe(
                 data => token = data._token,
                 response => {
@@ -58,12 +55,11 @@ export class AuthPage {
                     this.navCtrl.push(TabsPage);
                 }
             );
-
     }
 
     alert(message){
         let alert = this.alertCtrl.create({
-            title: 'Auth',
+            title: this.pageTitle,
             subTitle: message,
             buttons: ['Dismiss']
         });

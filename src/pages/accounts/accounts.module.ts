@@ -4,24 +4,25 @@ import { IonicModule, IonicApp, IonicErrorHandler } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 import { AccountsService } from '../../providers/accounts.service';
-import { AccountsPage } from './accounts-component/accounts';
+import { Account } from '../../providers/account';
+
+import { AccountsListPage } from './list-component/list.component';
 import { AccountAddPage } from './account-add/account-add';
 import { AccountDetailsPage } from './account-details/account-details';
-import { Account } from '../../providers/account';
 
 @NgModule({
     declarations: [
-        AccountsPage,
+        AccountsListPage,
         AccountAddPage,
         AccountDetailsPage
     ],
     imports: [
         CommonModule,
-        IonicModule.forRoot(AccountsPage, AccountAddPage, AccountDetailsPage)
+        IonicModule.forRoot(AccountsListPage, AccountAddPage, AccountDetailsPage)
     ],
     bootstrap: [IonicApp],
     entryComponents: [
-        AccountsPage,
+        AccountsListPage,
         AccountAddPage,
         AccountDetailsPage,
     ],

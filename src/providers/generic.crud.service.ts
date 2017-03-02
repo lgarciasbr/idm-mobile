@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Headers, RequestOptions } from '@angular/http';
+import { Storage } from '@ionic/storage';
 import { Config } from 'ionic-angular';
 import { AppConfig } from './config.service.ts';
 import 'rxjs/add/operator/map';
@@ -11,6 +12,7 @@ export class CRUDService {
 
     constructor(
         private _http: Http,
+        private storage: Storage,
         private config: Config){
 
             this.endPoint = AppConfig.apiEndpoint;
@@ -33,7 +35,7 @@ export class CRUDService {
     GetList(type, page?){
         var options = this.GetHeader();
 
-        return this._http.get(this.endPoint + '/' + type + '/' + '/?page=' + page + '&per_page=15', options)
+        return this._http.get(this.endPoint + '/' + type + '/?page=' + page + '&per_page=15', options)
             .map(res => res.json());
     }
 
@@ -56,6 +58,16 @@ export class CRUDService {
         var options = this.GetHeader();
 
         return this._http.delete(item._url, options)
+            .map(res => res.json());
+    }
+
+    Logout(){
+        var options = this.GetHeader();
+
+        this.config.set('idM-token', null);
+        this.storage.remove('idM-token');
+
+        return this._http.delete(this.endPoint + '/auth/', options)
             .map(res => res.json());
     }
 

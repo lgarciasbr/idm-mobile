@@ -4,7 +4,7 @@ import { App, NavController, NavParams, AlertController, LoadingController } fro
 import { AccountsService } from '../../../providers/accounts.service';
 import { AuthService } from '../../../providers/auth.service';
 
-import { AccountsPage } from '../accounts-component/accounts';
+import { AccountsListPage } from '../list-component/list.component';
 import { AuthPage } from '../../auth/auth';
 
 @Component({
@@ -23,14 +23,14 @@ export class AccountDetailsPage {
         private _auth: AuthService,
         private _account: AccountsService) {
 
-        this.GetAccount(navParams.get('account'))
+        this.GetAccount(navParams.get('item'))
     }
 
     ionViewDidLoad() {
     }
 
     Back(){
-        this.navCtrl.pop(AccountsPage);
+        this.navCtrl.pop(AccountsListPage);
     }
 
     Alert(message, page?){
@@ -66,12 +66,12 @@ export class AccountDetailsPage {
                     }
                     else if (response.status == 404) {
                         loader.dismiss();
-                        this.Alert('Account not found.', AccountsPage)
+                        this.Alert('Account not found.', AccountsListPage)
                     }
                     else  {
                         loader.dismiss();
                         this.Alert(JSON.parse(response._body).message)
-                        this.navCtrl.pop(AccountsPage);
+                        this.navCtrl.pop(AccountsListPage);
                     }
                 },
                 () => {
@@ -120,7 +120,7 @@ export class AccountDetailsPage {
                     }
                     else if (response.status == 404) {
                         loader.dismiss();
-                        this.Alert('Account not found.', AccountsPage)
+                        this.Alert('Account not found.', AccountsListPage)
                     }
                     else {
                         loader.dismiss();
@@ -128,7 +128,7 @@ export class AccountDetailsPage {
                     }
                 },
                 () => {
-                    this.navCtrl.pop(AccountsPage);
+                    this.navCtrl.pop(AccountsListPage);
                 }
             );
     }
