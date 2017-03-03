@@ -24,11 +24,13 @@
 
     <ion-list>
 
-        <ion-item text-center no-lines padding-top padding-bottom>
-            <img [src]='ItemVO?._avatar' class="avatar">
-            <p>
-                {{ ItemVO?.email }}
-            </p>
+        <ion-item text-wrap padding-top>
+
+            <p>e-mail:</p>
+            <h4>
+                {{ ItemVO?.name }}
+            </h4>
+
         </ion-item>
 
         <ion-item text-wrap padding-bottom>

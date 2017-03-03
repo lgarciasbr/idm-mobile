@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { App, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
-import md5 from 'crypto-md5';
 
 import { CRUDService } from '../../../providers/generic.crud.service';
-import { Account } from '../../../providers/account';
+import { Group } from '../../../providers/group';
 
 import { AuthPage } from '../../auth/auth';
 
@@ -11,9 +10,9 @@ import { AuthPage } from '../../auth/auth';
     selector: 'page-account-details',
     templateUrl: 'details.component.html'
 })
-export class AccountDetailsPage {
-    private pageTitle = 'Account Details';
-    public ItemVO = new Account();
+export class GroupDetailsPage {
+    private pageTitle = 'Group Details';
+    public ItemVO = new Group();
 
     constructor(
         private app: App,
@@ -23,7 +22,6 @@ export class AccountDetailsPage {
         private loadingController: LoadingController,
         private crudService: CRUDService) {
 
-        this.ItemVO._avatar = "https://www.gravatar.com/avatar/?d=mm";
         this.GetItem(navParams.get('item'))
     }
 
@@ -36,7 +34,7 @@ export class AccountDetailsPage {
 
         this.crudService.GetItem(item)
             .subscribe(
-                data => this.ItemVO = data.account,
+                data => this.ItemVO = data.group,
                 response => {
                     if (response.status == 403) {
                         loader.dismiss();
@@ -54,7 +52,6 @@ export class AccountDetailsPage {
                     }
                 },
                 () => {
-                    this.ItemVO._avatar = "https://www.gravatar.com/avatar/" + md5(item.email.toLowerCase(), 'hex') + "?d=mm";
                     loader.dismiss();
                 }
             );
@@ -63,7 +60,7 @@ export class AccountDetailsPage {
     ConfirmDelete(item){
         let alert = this.alertCtrl.create({
             title: this.pageTitle,
-            subTitle: 'Are you sure you want to delete ' + item.email + '?',
+            subTitle: 'Are you sure you want to delete ' + item.name + '?',
             buttons: [
                 {
                     text: 'Cancel',
@@ -91,7 +88,7 @@ export class AccountDetailsPage {
 
         this.crudService.DeleteItem(item)
             .subscribe(
-                data => this.ItemVO = data.account,
+                data => this.ItemVO = data.group,
                 response => {
                     if (response.status == 403) {
                         loader.dismiss();

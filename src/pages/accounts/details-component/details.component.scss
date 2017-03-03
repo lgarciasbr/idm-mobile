@@ -1,3 +1,15 @@
 page-account-details {
 
+    .avatar  {
+    /* make a square container */
+    width: 100px;
+    height: 100px;
+
+    /* center the image vertically and horizontally */
+    background-position: center;
+
+    /* round the edges to a circle with border radius 1/2 container size */
+    border-radius: 50%;
+    }
+
 }
