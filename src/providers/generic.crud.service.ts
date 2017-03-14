@@ -15,7 +15,7 @@ export class CRUDService {
         private storage: Storage,
         private config: Config){
 
-            this.endPoint = AppConfig.apiEndpoint;
+        this.endPoint = AppConfig.apiEndpoint;
     }
 
     GetHeader(){
@@ -35,7 +35,7 @@ export class CRUDService {
     GetList(type, page?){
         var options = this.GetHeader();
 
-        return this._http.get(this.endPoint + '/' + type + '/?page=' + page + '&per_page=15', options)
+        return this._http.get(this.endPoint + '/' + type + '/?page=' + page + '&per_page=30', options)
             .map(res => res.json());
     }
 
@@ -46,6 +46,15 @@ export class CRUDService {
             .map(res => res.json());
 
     }
+
+
+    SearchItem(type, value?, page?){
+        var options = this.GetHeader();
+
+        return this._http.get(this.endPoint + '/' + type + '/search/?email=' + value + '&page=' + page + '&per_page=12', options)
+            .map(res => res.json());
+    }
+
 
     AddItem(type, item){
         var options = this.GetHeader();

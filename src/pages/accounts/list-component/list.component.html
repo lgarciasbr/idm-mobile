@@ -17,7 +17,7 @@
 
         </ion-buttons>
 
-        <ion-searchbar hideWhen="ios" [hidden]="!isSearchBarVisible" right debounce="500"></ion-searchbar>
+        <ion-searchbar hideWhen="ios" [hidden]="!isSearchBarVisible" right (ionInput)="onInput($event)" (ionClear)="onInput($event)" debounce="500"></ion-searchbar>
 
         <ion-buttons bar-button end icon-only>
 
@@ -33,7 +33,7 @@
 
     </ion-toolbar>
 
-    <ion-searchbar hideWhen="android" debounce="300"></ion-searchbar>
+    <ion-searchbar hideWhen="android" (ionInput)="onInput($event)" debounce="500"></ion-searchbar>
 
 </ion-header>
 

@@ -19,6 +19,7 @@ export class AccountsListPage {
     private type = 'accounts';
     public ItemsVO: Account[];
     public isSearchBarVisible = false;
+    private value = '';
 
     constructor(
         private app: App,
@@ -29,11 +30,54 @@ export class AccountsListPage {
     }
 
     ionViewWillEnter(){
-        this.GetList();
+        this.SearchItem();
     }
 
     ChangeSearchBarStatus(){
         this.isSearchBarVisible = !this.isSearchBarVisible
+    }
+
+    onInput(event: KeyboardEvent) {
+        this.value = (<HTMLInputElement>event.target).value
+
+        if (this.value != null && (this.value.length == 0 || this.value.length >= 3)) {
+            this.SearchItem();
+        }
+        else if (this.value == null){
+            this.value = '';
+            this.SearchItem();
+        }
+    }
+
+    SearchItem(page?){
+        let loader = this.loadingController.create({
+            content: "Please wait",
+            spinner: "crescent"
+        })
+
+        loader.present();
+
+        this.crudService.SearchItem(this.type, this.value, page)
+            .subscribe(
+                data => this.ItemsVO = data.accounts,
+                response => {
+                    if (response.status == 403) {
+                        loader.dismiss();
+                        this.crudService.Logout();
+                        this.app.getRootNav().setRoot(AuthPage);
+                    }
+                    else {
+                        loader.dismiss();
+                        this.Alert(JSON.parse(response._body).message);
+                    }
+                },
+                () => {
+                    for (let item of this.ItemsVO) {
+                        item._avatar = "https://www.gravatar.com/avatar/" + md5(item.email.toLowerCase(), 'hex') + "?d=mm";
+                    }
+                    loader.dismiss();
+                }
+            );
     }
 
     GetList(page?){
@@ -68,7 +112,7 @@ export class AccountsListPage {
     }
 
     DoRefresh(refresher) {
-        this.GetList()
+        this.SearchItem();
 
         refresher.complete();
     }
